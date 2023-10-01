@@ -39,12 +39,12 @@
                     <th>
                         <% if b.favorited_by?(current_user) %>
                             <%= link_to book_favorites_path(b.id), method: :delete do %>
-                                <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                                <i class="fas fa-heart" style="color: #ff0000;"></i>
                                 <%= b.favorites.count %> 
                             <% end %>
                         <% else %>
                             <%= link_to book_favorites_path(b.id), method: :post do %>
-                                <i class="fa-solid fa-heart" style="color: #0007c7;"></i>
+                                <i class="fas fa-heart" style="color: #0007c7;"></i>
                                 <%= b.favorites.count %>
                             <% end %>
                         <% end %>

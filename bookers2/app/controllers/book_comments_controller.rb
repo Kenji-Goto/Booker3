@@ -11,9 +11,9 @@ class BookCommentsController < ApplicationController
     comment = BookComment.find(params[:id])
     if current_user.id == comment.user.id
       comment.destroy
-      redirect_to book_path(params[:book_id])
+      redirect_to request.referer
     else
-      redirect_to book_path(params[:book_id])
+      redirect_to request.referer
     end
   end
 
