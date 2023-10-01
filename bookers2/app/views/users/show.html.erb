@@ -1,0 +1,36 @@
+<div>
+    <p><%= flash[:notice] %></p>
+    <p><%= flash[:alert] %></p>
+</div>
+<div class="container">
+    <div class="row ">
+        <%= render 'userInfo', user: @user %>
+        <%= render 'books/new', book: @book%>
+        <div class="col-md-8 offset-md-1 mx-auto">
+            <h2>Books</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Opinion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <% @books.each do |book| %>
+                <tbody>
+                    <tr>
+                      <td>
+                          <%= link_to user_path(@user.id) do%>
+                          <%= image_tag @user.get_profile_image(100,100) %>
+                          <% end %>
+                      </td>
+                      <td><%= link_to book.title ,book_path(book.id)%></td>
+                      <td><%= book.body %></td>
+                    </tr>
+                </tbody>
+                <% end %>
+            </table>
+        </div>
+    </div>
+</div>

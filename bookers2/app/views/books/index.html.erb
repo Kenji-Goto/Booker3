@@ -1,0 +1,58 @@
+<div>
+    <p><%= flash[:notice] %></p>
+     <% if @book.errors.any? %>
+      <div class="error_explanation">
+        <h3><%= @book.errors.count %> errors prohibited this book from being saved:</h3>
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end%>
+        </ul>
+      </div>
+    <% end %>
+</div>
+<div class="container">
+    <div class="row">
+        <%= render 'users/userInfo', user: current_user %>
+        <%= render 'books/new',book: @book%>
+        <div class="col-md-8 offset-md-1">
+            <h2>Books</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Opinion</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <% @books.each do |b|%>
+                <tbody>
+                    <th>
+                        <%= link_to user_path(b.user.id) do %>
+                        <%= image_tag b.user.get_profile_image(100,100) %>
+                        <% end %>
+                    </th>
+                    <th><%= link_to b.title,book_path(b.id)%></th>
+                    <th><%= b.body %></th>
+                    <th>
+                        <% if b.favorited_by?(current_user) %>
+                            <%= link_to book_favorites_path(b.id), method: :delete do %>
+                                <i class="fa-solid fa-heart" style="color: #ff0000;"></i>
+                                <%= b.favorites.count %> 
+                            <% end %>
+                        <% else %>
+                            <%= link_to book_favorites_path(b.id), method: :post do %>
+                                <i class="fa-solid fa-heart" style="color: #0007c7;"></i>
+                                <%= b.favorites.count %>
+                            <% end %>
+                        <% end %>
+                    </th>
+                    <th> <p>コメント数：<%= b.book_comments.count %></p></th>
+                </tbody>
+                <% end %>
+            </table>
+        </div>
+    </div>
+</div>
